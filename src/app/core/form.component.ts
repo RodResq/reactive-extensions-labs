@@ -7,7 +7,7 @@ import { MODES, SharedState, SHARED_STATE } from "./sharedState.model";
 
 @Component({
     selector: "paForm",
-    templateUrl: "form.component.html",
+    templateUrl: 'form.component.html',
     styleUrls: ["form.component.css"]
 })
 export class FormComponent {
