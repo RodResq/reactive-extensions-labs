@@ -5,8 +5,7 @@ export enum MODES {
 }
 
 export class SharedState {
-
-    constructor(public mode: MODES, public id?: number) { }
+    constructor(public mode: MODES, public id?: number) {}
 }
 
 export const SHARED_STATE = new InjectionToken("shared_state");
