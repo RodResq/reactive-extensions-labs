@@ -27,6 +27,7 @@ export class TableComponent {
 
     editProduct(key: number) {
         // this.observer.next(new SharedState(MODES.EDIT, key));
+        this.observer.next(new SharedState(MODES.EDIT, key));
     }
 
     createProduct() {
