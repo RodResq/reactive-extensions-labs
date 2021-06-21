@@ -2,21 +2,39 @@ import { Pipe } from "@angular/core";
 import { SharedState, MODES } from "./sharedState.model";
 import { Model } from "../model/repository.model";
 
+// @Pipe({
+//     name: "formatState",
+//     pure: true
+// })
 @Pipe({
-    name: "formatState",
+    name: 'formatState',
     pure: true
 })
 export class StatePipe {
 
-    constructor(private model: Model) { }
+    constructor(private model: Model) {
+    }
 
-    transform(value: any): string {
-        if (value instanceof SharedState) {
+    transform(value: any) {
+        if(value instanceof SharedState) {
             let state = value as SharedState;
-            return MODES[state.mode] + (state.id != undefined
-                ? ` ${this.model.getProduct(state.id).name}` : "");
+            return MODES[state.mode] + (state.id != undefined ?
+                ` ${this.model.getProduct(state.id).name}` : "");
         } else {
             return "<No Data>"
         }
     }
+
+
+    // constructor(private model: Model) { }
+    //
+    // transform(value: any): string {
+    //     if (value instanceof SharedState) {
+    //         let state = value as SharedState;
+    //         return MODES[state.mode] + (state.id != undefined
+    //             ? ` ${this.model.getProduct(state.id).name}` : "");
+    //     } else {
+    //         return "<No Data>"
+    //     }
+    // }
 }
