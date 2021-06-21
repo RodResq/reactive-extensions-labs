@@ -25,6 +25,7 @@ export class StatePipe {
         }
     }
 
+//    parei na pagina 580;
 
     // constructor(private model: Model) { }
     //
