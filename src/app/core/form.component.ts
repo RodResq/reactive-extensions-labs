@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 import {Product} from '../model/product.model';
 import {Model} from '../model/repository.model';
 import {MODES, SHARED_STATE, SharedState} from './sharedState.model';
-import {filter, map} from 'rxjs/operators';
+import {filter, map, tap} from 'rxjs/operators';
 
 @Component({
     selector: "paForm",
@@ -18,17 +18,33 @@ export class FormComponent {
     constructor(
         private model: Model,
         @Inject(SHARED_STATE) private stateEvents: Observable<SharedState>) {
+            // stateEvents
+            //     .pipe(
+            //         map(state => new SharedState(state.mode, state.id == 5 ? 1: state.id)),
+            //         filter(state => state.id != 3))
+            //     .subscribe((update) => {
+            //         this.product = new Product();
+            //         if(update.id != undefined) {
+            //             Object.assign(this.product, this.model.getProduct(update.id));
+            //         }
+            //         this.editing = update.mode == MODES.EDIT;
+            // });
+            //listening 23-15
             stateEvents
                 .pipe(
-                    map(state => new SharedState(state.mode, state.id == 5 ? 1: state.id)),
-                    filter(state => state.id != 3))
-                .subscribe((update) => {
+                    map(state => state.mode == MODES.EDIT ? state.id : -1),
+                    tap(result => console.log(result)),
+                    filter(id => id != 3)
+                ).subscribe(id => {
+                    this.editing = id != -1;
                     this.product = new Product();
-                    if(update.id != undefined) {
-                        Object.assign(this.product, this.model.getProduct(update.id));
+                    if(id != -1) {
+                        Object.assign(this.product, this.model.getProduct(id));
                     }
-                    this.editing = update.mode == MODES.EDIT;
-            });
+                }
+
+            )
+            // parei na pg 587 - Recieve ony distinct events
         }
 
     submitForm(form: NgForm) {
